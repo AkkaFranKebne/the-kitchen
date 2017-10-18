@@ -16,13 +16,17 @@ export class ShoppingListComponent implements OnInit {
         new Ingredient('butter', 250),
         new Ingredient('raisins', 30),
         new Ingredient('sugar', 500),
-        new Ingredient('milk', 500)     
+        new Ingredient('milk', 500)
     ];
-    
-    
+
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onIngredientAdded(ingredient: Ingredient){
+      this.ingredients.push(ingredient);
   }
 
 }

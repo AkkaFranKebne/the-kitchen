@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+
+import {Ingredient} from "../../shared/ingredient.model";
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list-edit.component.css']
 })
 export class ShoppingListEditComponent implements OnInit {
+  @ViewChild('nameInput') nameInputRef: ElementRef;
+  @ViewChild('amountInput') amountInputRef: ElementRef;
+  @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onAddItem(){
+    const ingredientName = this.nameInputRef.nativeElement.value;  // const not let, because we declare this value only 1 time
+    const ingredientAmount = this.amountInputRef.nativeElement.value;
+    const newIngredient = new Ingredient(ingredientName, ingredientAmount);
+    this.ingredientAdded.emit(newIngredient);
   }
 
 }
