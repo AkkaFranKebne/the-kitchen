@@ -24,5 +24,8 @@ export class ShoppingListService {
     this.ingredientsChanged.emit(this.ingredients.slice()); // push the info that the orginal ingredients array has changed
   }
 
-
+  addIngredients(ingredients: Ingredient[]){
+    this.ingredients.push(...ingredients); // spread - takes an array and make it a list before push
+    this.ingredientsChanged.emit(this.ingredients.slice()); // push the info that the orginal ingredients array has changed
+  }
 }

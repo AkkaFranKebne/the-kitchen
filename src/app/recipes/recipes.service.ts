@@ -1,8 +1,10 @@
-import {EventEmitter} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 
 import { Recipe } from './recipe.model';
 import { Ingredient} from "../shared/ingredient.model";
+import {ShoppingListService} from "../shopping-list/shopping-list.service";
 
+@Injectable()  // because I want to connect to this service and shopping list service (see connector below)
 export class RecipeService {
 
   recipeSelected = new EventEmitter<Recipe>();  // this part emit info about recipe
@@ -20,7 +22,7 @@ export class RecipeService {
         new Ingredient ('sugar', 500),
         new Ingredient ('butter', 500)
 
-      ]),     //calls the constructor in Recipe class
+      ]),     // calls the constructor in Recipe class
     new Recipe(
       'Smooth Brownie Cupcakes',
       'Gingerbread caramels biscuit toffee. Icing sweet topping. Pie chocolate cake wafer dessert lollipop. Icing ice cream pie bonbon cake muffin toffee brownie cupcake.',
@@ -35,8 +37,15 @@ export class RecipeService {
       ])
   ];
 
+  constructor (private shoppingListService: ShoppingListService) {};
+
   getRecipes(){
     return this.recipes.slice();  // exact copy
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]){
+    this.shoppingListService.addIngredients(ingredients);
+
   }
 
 
